@@ -1,0 +1,8 @@
+name: DiscordBot
+version: 1.0.0
+main: pink.cutezy.DiscordBot.DiscordPlugin
+softdepend:
+  - Factions
+  - Towny
+authors: [cutezyash]
+website: cutezy.pink
