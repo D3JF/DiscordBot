@@ -9,7 +9,7 @@ import pink.cutezy.DiscordBot.DiscordPlugin;
 import static pink.cutezy.DiscordBot.DiscordUtil.*;
 import static pink.cutezy.DiscordBot.DiscordPlugin.sendOut;
 
-public class DiscordDeathListener extends EntityListener {
+public class GameDeathListener extends EntityListener {
     public void onEntityDeath(EntityDeathEvent event) {
         if(!(event.getEntity() instanceof Player))
             return;
@@ -18,9 +18,9 @@ public class DiscordDeathListener extends EntityListener {
             Player player = (Player) event.getEntity();
             String name = player.getName();
             if(!config.playerWebhookDeaths)
-                sendOut(msgToUsefulOut(player, config.deathMessages.obj));
+                sendOut(msgToUsefulOut(player, config.deathMessages.msg, null, null));
             else
-                DiscordPlugin.sendOut(name, getImageFromCfg(name), msgToUsefulOut(player, config.deathMessages.obj));
+                DiscordPlugin.sendOut(name, getImageFromCfg(name), msgToUsefulOut(player, config.deathMessages.msg, null, null));
         }
     }
 }

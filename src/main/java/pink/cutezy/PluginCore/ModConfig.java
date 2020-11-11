@@ -2,6 +2,7 @@ package pink.cutezy.PluginCore;
 
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.config.Configuration;
+import org.bukkit.util.config.ConfigurationNode;
 
 import java.io.File;
 import java.util.HashMap;
@@ -13,13 +14,17 @@ import java.util.Map;
  * @author cutezyash
  */
 public class ModConfig {
-    private static JavaPlugin plugin;
-    public static void initialize(JavaPlugin javaPlugin) {
-        plugin = javaPlugin;
+    private JavaPlugin plugin;
+    public static ModConfig initialize(JavaPlugin javaPlugin) {
+        return new ModConfig(javaPlugin);
     }
 
-    private static Map<String, Configuration> configDict = new HashMap<>();
-    public static Configuration getConfigByName(String config) {
+    ModConfig(JavaPlugin plugin) {
+        this.plugin = plugin;
+    }
+
+    private Map<String, Configuration> configDict = new HashMap<>();
+    public Configuration getConfigByName(String config) {
         config = config + ".yml";
         if(configDict.containsKey(config))
             return configDict.get(config);
@@ -29,30 +34,43 @@ public class ModConfig {
         configDict.put(config, c);
         return c;
     }
-    public static Configuration getPlayerConfigMod(String mod, String playerName) {
-        return getConfigByName(mod+"/"+playerName);
+    public Configuration getPlayerConfigMod(String modifier, String playerName) {
+        return getConfigByName(modifier+"/"+playerName);
     }
 
-    public static Object get(Configuration c, String object) {
+    public Object get(Configuration c, String object) {
         return c.getProperty(object);
     }
+    public <T> T getOrDefault(Configuration c, String object, T defaul, Class<T> type) {
+        T ret = type.cast(c.getProperty(object));
+        System.out.println(ret);
+        if(ret == null) {
+            addTo(c, object, defaul);
+            return type.cast(defaul);
+        }
+        return ret;
+    }
 
-    public static void addDefault(Configuration c, String object, Object value) {
+    public void addDefault(Configuration c, String object, Object value) {
         if(c.getProperty(object) == null)
             addTo(c, object, value);
     }
 
-    public static void addTo(Configuration c, String object, Object value) {
+    public void addTo(Configuration c, String object, Object value) {
         c.setProperty(object, value);
         c.save();
     }
 
-    public static boolean contains(Configuration c, String object) {
+    public boolean contains(ConfigurationNode node, String object) {
+        Object s = node.getProperty(object);
+        return s != null;
+    }
+    public boolean contains(Configuration c, String object) {
         Object s = c.getProperty(object);
         return s != null;
     }
 
-    public static void remove(Configuration c, String object) {
+    public void remove(Configuration c, String object) {
         c.removeProperty(object);
         c.save();
     }

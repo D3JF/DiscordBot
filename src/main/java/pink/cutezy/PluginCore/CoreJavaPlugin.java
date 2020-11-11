@@ -14,9 +14,14 @@ import java.util.List;
  * @author cutezyash
  */
 public abstract class CoreJavaPlugin extends JavaPlugin {
+    private ModConfig modConfig;
     public CoreJavaPlugin() {
         this.instList = new ArrayList<>();
-        ModConfig.initialize(this);
+        this.modConfig = ModConfig.initialize(this);
+    }
+
+    public ModConfig getModConfig() {
+        return modConfig;
     }
 
     /** INSTANCED PLUGIN STYLES **/
@@ -50,7 +55,7 @@ public abstract class CoreJavaPlugin extends JavaPlugin {
             return this;
         }
     }
-    protected MainClass newInst(Class<? extends Listener> clazz) {
+    protected MainClass newInst(Class<?> clazz) {
         MainClass mainClass = new MainClass(clazz);
         this.instList.add(mainClass);
         return mainClass;
