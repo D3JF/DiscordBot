@@ -18,9 +18,9 @@ public class DiscordDeathListener extends EntityListener {
             Player player = (Player) event.getEntity();
             String name = player.getName();
             if(!config.playerWebhookDeaths)
-                sendOut(msgToUsefulOut(player, config.deathMessages.obj));
+                sendOut(msgToUsefulOut(player, config.deathMessages.msg, null, null));
             else
-                DiscordPlugin.sendOut(name, getImageFromCfg(name), msgToUsefulOut(player, config.deathMessages.obj));
+                DiscordPlugin.sendOut(name, getImageFromCfg(name), msgToUsefulOut(player, config.deathMessages.msg, null, null));
         }
     }
 }

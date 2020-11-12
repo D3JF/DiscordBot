@@ -5,8 +5,6 @@ import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.DyeColor;
 import org.bukkit.entity.Player;
 import org.bukkit.util.config.Configuration;
 import pink.cutezy.DiscordBot.framework.ColorUtil;
@@ -65,6 +63,8 @@ public class DiscordUtil {
         int max = Bukkit.getServer().getMaxPlayers();
         if(args.containsKey("roleColor"))
             orig = orig.replaceAll("%roleColor%", args.get("roleColor").toString());
+        else
+            orig = orig.replaceAll("%roleColor%", "");
         if(args.containsKey("curPlayers"))
             online = online + (int) args.get("curPlayers");
         if(!args.containsKey("disableColor"))

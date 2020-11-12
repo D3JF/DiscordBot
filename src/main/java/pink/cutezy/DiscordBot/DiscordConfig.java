@@ -115,12 +115,12 @@ public class DiscordConfig {
 
         final ConfigurationNode cmdConfNode = nodeCheck(commandsNode, "Configuration");
         this.cmdConfUseRichMessages = cmdConfNode.getBoolean("UseRichMessages", true);
-        this.cmdConfMessageTitle = noneCheck(cmdConfNode.getString("RichMessageTitle"));
-        this.cmdConfMessageFooter = noneCheck(cmdConfNode.getString("RichMessageFooter"));
-        this.cmdConfMessageThumbnail = noneCheck(cmdConfNode.getString("RichMessageThumbnail"));
-        this.cmdConfMessageImage = noneCheck(cmdConfNode.getString("RichMessageImage"));
-        this.cmdConfMessageFooterIcon = noneCheck(cmdConfNode.getString("RichMessageFooterIcon"));
-        String richColor = noneCheck(cmdConfNode.getString("RichMessageColor"));
+        this.cmdConfMessageTitle = noneCheck(cmdConfNode.getProperty("RichMessageTitle"));
+        this.cmdConfMessageFooter = noneCheck(cmdConfNode.getProperty("RichMessageFooter"));
+        this.cmdConfMessageThumbnail = noneCheck(cmdConfNode.getProperty("RichMessageThumbnail"));
+        this.cmdConfMessageImage = noneCheck(cmdConfNode.getProperty("RichMessageImage"));
+        this.cmdConfMessageFooterIcon = noneCheck(cmdConfNode.getProperty("RichMessageFooterIcon"));
+        String richColor = noneCheck(cmdConfNode.getProperty("RichMessageColor"));
         if(richColor == null)
             this.cmdConfMessageColor = Color.BLACK;
         else {
@@ -161,7 +161,10 @@ public class DiscordConfig {
         });*/
         return node;
     }
-    private String noneCheck(String s) {
+    private String noneCheck(Object obj) {
+        if(obj == null)
+            return null;
+        String s = (String) obj;
         return s.equals("None") || s.isEmpty() ? null : s;
     }
 

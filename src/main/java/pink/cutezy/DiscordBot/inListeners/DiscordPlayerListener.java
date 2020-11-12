@@ -61,9 +61,9 @@ public class DiscordPlayerListener extends PlayerListener {
         if(instance.joinMessage.enabled) {
             String name = player.getName();
             if (instance.playerWebhookJoinLeave)
-                DiscordPlugin.sendOut(name, getImageFromCfg(name), msgToUsefulOut(player, instance.joinMessage.obj));
+                DiscordPlugin.sendOut(name, getImageFromCfg(name), msgToUsefulOut(player, instance.joinMessage.msg, null, null));
             else
-                sendOut(msgToUsefulOut(player, instance.joinMessage.obj));
+                sendOut(msgToUsefulOut(player, instance.joinMessage.msg, null, null));
         }
     }
 
@@ -79,9 +79,9 @@ public class DiscordPlayerListener extends PlayerListener {
             Player player = event.getPlayer();
             String name = player.getName();
             if (instance.playerWebhookJoinLeave)
-                DiscordPlugin.sendOut(name, getImageFromCfg(name), msgToUsefulOut(player, instance.quitMessage.obj));
+                DiscordPlugin.sendOut(name, getImageFromCfg(name), msgToUsefulOut(player, instance.quitMessage.msg, null, null));
             else
-                sendOut(msgToUsefulOut(player, instance.quitMessage.obj));
+                sendOut(msgToUsefulOut(player, instance.quitMessage.msg, null, null));
         }
     }
 }
